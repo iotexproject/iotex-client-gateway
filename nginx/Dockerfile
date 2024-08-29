@@ -6,7 +6,7 @@ RUN openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout /etc/ng
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY version.txt /usr/share/nginx/html/version.txt
+#COPY version.txt /usr/share/nginx/html/version.txt
 
 STOPSIGNAL SIGTERM
 
