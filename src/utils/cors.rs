@@ -26,7 +26,13 @@ impl Fairing for CORS {
                 "Access-Control-Allow-Headers",
                 "X-Requested-With, Content-Type, Authorization",
             ));
-            response.set_header(Header::new("Access-Control-Allow-Credentials", "true"));
+            // No Access-Control-Allow-Credentials: the CORS spec forbids pairing
+            // it with a wildcard origin, so browsers reject every credentialed
+            // cross-origin request that receives both. Sending it alongside
+            // `Allow-Origin: *` therefore never worked — it only made the policy
+            // look more permissive than it is. This API authenticates with an
+            // Authorization header, which needs Allow-Headers (above) and not
+            // Allow-Credentials, so nothing depended on it.
         }
         if request.method() == Method::Options && request.route().is_none() {
             response.set_header(ContentType::Plain);
