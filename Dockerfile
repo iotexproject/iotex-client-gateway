@@ -51,7 +51,7 @@ RUN cargo build --release --locked --target $(cat /rust_target.txt)
 RUN cp target/$(cat /rust_target.txt)/release/safe-client-gateway .
 
 # Runtime Image
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 WORKDIR "/app"
 
 ENV ROCKET_ENV=production ROCKET_ADDRESS=0.0.0.0 ROCKET_PORT=3666
